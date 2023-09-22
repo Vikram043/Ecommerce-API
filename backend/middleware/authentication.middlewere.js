@@ -5,9 +5,10 @@ require("dotenv").config();
 const Authentication = (req, res, next) => {
     try {
 
-    let token = req.cookies.AccessToken || req.headers.authorization.split(" ")[1];
+    let token = req.cookies.AccessToken 
 
-    if (!token) return res.status(401).send({ message: "Access Denied" });
+  
+    if (!token) return res.status(401).send({ message: "Access Denied Please login" });
 
     const decoded=jwt.verify(token, process.env.SECRET_KEY)
 

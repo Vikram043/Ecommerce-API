@@ -1,7 +1,55 @@
 const ProductModel = require("../models/prodect.model");
 const UserModel = require("../models/user.model");
 
+/**
+ * @swagger
+ * tags:
+ *   name: Cart
+ *   description: API endpoints for managing cart
+ */
 
+/**
+ * @swagger
+ * /cart/items:
+ *   get:
+ *     summary: Get User's Cart Items
+ *     description: Retrieve the items in the user's cart.
+ *     tags: [Cart]
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved the user's cart items
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   productId:
+ *                     type: string
+ *                     description: ID of the product in the cart
+ *                   quantity:
+ *                     type: number
+ *                     description: Quantity of the product in the cart
+ *       '404':
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 
 exports.cartItems=async (req, res) => {
     // Extract the userID from the request body (previously set in the Authentication middleware)
@@ -27,10 +75,79 @@ exports.cartItems=async (req, res) => {
     }
   }
 
+/**
+ * @swagger
+ * tags:
+ *   name: Cart
+ *   description: API endpoints for managing cart
+ */
+
+/**
+ * @swagger
+ * paths:
+ *   /cart/add:
+ *     post:
+ *       summary: Add Product to User's Cart
+ *       description: Add a product to the user's cart.
+ *       tags: [Cart]
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 productId:
+ *                   type: string
+ *                   description: ID of the product to add to the cart.
+ *                 quantity:
+ *                   type: number
+ *                   default: 1 
+ *                   description: Quantity of the product to add to the cart.
+ *       responses:
+ *         '200':
+ *           description: Product added to the cart successfully
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *         '404':
+ *           description: User not found or Product is not available
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *         '409':
+ *           description: Product already in the cart
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *         '500':
+ *           description: Internal Server Error
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ */
+
 
   exports.addtoCart=async (req, res) => {
     // Extract the productId, quantity (default is 1), and userID from the request body
-    const { productId, quantity = 1, userID } = req.body;
+    const { productId, quantity = 1 } = req.body;
+    const userID=req.body.userID
   
     try {
       // Find the user with the provided userID
@@ -78,6 +195,65 @@ exports.cartItems=async (req, res) => {
     }
   }
 
+/**
+ * @swagger
+ * tags:
+ *   name: Cart
+ *   description: API endpoints for managing cart
+ */
+
+/**
+ * @swagger
+ * /cart/remove/{id}:
+ *   delete:
+ *     summary: Remove Product from User's Cart
+ *     description: Remove a product from the user's cart by its ID.
+ *     tags: [Cart]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the product to remove from the cart
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: body
+ *         name: userId
+ *         description: ID of the user whose cart to update
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             userId:
+ *               type: string
+ *     responses:
+ *       '200':
+ *         description: Product removed from cart successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '404':
+ *         description: Product not found in cart
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '501':
+ *         description: Not Implemented - An error occurred during removal
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 
   exports.removeCart=async (req, res) => {
     // Extract the productId from the URL parameter
@@ -118,6 +294,56 @@ exports.cartItems=async (req, res) => {
   }
 
 
+/**
+ * @swagger
+ * tags:
+ *   name: Cart
+ *   description: API endpoints for managing cart
+ */
+
+/**
+ * @swagger
+ * /cart/increase/{id}:
+ *   patch:
+ *     summary: Increase Quantity of Product in User's Cart
+ *     description: Increase the quantity of a product in the user's cart by its ID (up to a maximum of 1).
+ *     tags: [Cart]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the product to increase quantity in the cart
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Quantity increased for the product in the cart
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '404':
+ *         description: Product not found in cart or Quantity cannot be increased 
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '501':
+ *         description: Not Implemented - An error occurred during quantity increase
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 
   exports.increaseCart=async (req, res) => {
     // Extract the productId from the URL parameter
@@ -167,6 +393,56 @@ exports.cartItems=async (req, res) => {
     }
   }
 
+/**
+ * @swagger
+ * tags:
+ *   name: Cart
+ *   description: API endpoints for managing cart
+ */
+
+/**
+ * @swagger
+ * /cart/decrease/{id}:
+ *   patch:
+ *     summary: Decrease Quantity of Product in User's Cart
+ *     description: Decrease the quantity of a product in the user's cart by its ID (down to a minimum of 1).
+ *     tags: [Cart]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the product to decrease quantity in the cart
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Quantity decreased for the product in the cart
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '404':
+ *         description: Product not found in cart or Quantity cannot be decreased below 1
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '501':
+ *         description: Not Implemented - An error occurred during quantity decrease
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 
   exports.decreseCart=async (req, res) => {
     // Extract the productId from the URL parameter

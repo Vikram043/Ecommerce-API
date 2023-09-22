@@ -6,9 +6,9 @@ const CategoryRouter = express.Router();
 
 CategoryRouter.post("/add", addCategory);
 
-CategoryRouter.get("/",allCategory );
+CategoryRouter.get("/all",allCategory );
 
-CategoryRouter.patch("/change/:id", updateCategory);
+CategoryRouter.patch("/update/:id", updateCategory);
 
 CategoryRouter.delete("/remove/:id", removeCategory);
 
