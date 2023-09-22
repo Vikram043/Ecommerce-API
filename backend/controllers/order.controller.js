@@ -1,6 +1,55 @@
 const OrderModel = require("../models/order.model");
 const UserModel  = require("../models/user.model");
 
+/**
+ * @swagger
+ * tags:
+ *   name: Orders
+ *   description: API endpoints for managing orders
+ */
+
+/**
+ * @swagger
+ * /orders/all:
+ *   get:
+ *     summary: Get All Orders for a User
+ *     description: Retrieve all orders for a user, sorted by order date in descending order.
+ *     tags: [Orders]
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved all orders for the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   orderDate:
+ *                     type: string
+ *                     format: date-time
+ *                     description: Date and time of the order
+ *       '404':
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+
+
 exports.allOrders=async (req, res) => {
     // Extract the userID from the request body
     const { userID } = req.body;
@@ -26,6 +75,55 @@ exports.allOrders=async (req, res) => {
   }
 
 
+  /**
+ * @swagger
+ * tags:
+ *   name: Orders
+ *   description: API endpoints for managing orders
+ */
+
+/**
+ * @swagger
+ * /orders/details/{id}:
+ *   get:
+ *     summary: Get Order Details by ID
+ *     description: Retrieve the details of an order by its ID.
+ *     tags: [Orders]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the order to retrieve
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved order details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *       '404':
+ *         description: Order not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+
   exports.order=async (req, res) => {
     // Extract the order ID from the URL parameter
     const id = req.params.id;
@@ -46,6 +144,88 @@ exports.allOrders=async (req, res) => {
       res.status(500).send({ message: error.message });
     }
   }
+
+
+/**
+ * @swagger
+ * tags:
+ *   name: Orders
+ *   description: API endpoints for managing orders
+ */
+
+/**
+ * @swagger
+ * /orders/add/{productId}:
+ *   post:
+ *     summary: Place an Order
+ *     description: Place an order for a product in the user's cart. The product will be removed from the user's cart, and the order will be associated with the selected address.
+ *     tags: [Orders]
+ *     parameters:
+ *       - in: path
+ *         name: productId
+ *         description: ID of the product to place an order for
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               addresses:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     pincode:
+ *                       type: number
+ *                     state:
+ *                       type: string
+ *                     city:
+ *                       type: string
+ *                     road_name:
+ *                       type: string
+ *     responses:
+ *       '200':
+ *         description: Order Placed Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '400':
+ *         description: Please select an address before placing the order
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '401':
+ *         description: Product not found in user cart
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+
 
 
   exports.addOrder=async (req, res) => {
@@ -77,8 +257,9 @@ exports.allOrders=async (req, res) => {
       }
   
       // Find the selected address from the user's address list
-      const address = user.address.find((addr) => addr.isSelected === true);
-  
+      const address = req.body.addresses
+      console.log(address)
+
       // If no address is selected, return a 400 Bad Request status with an error message
       if (!address) {
         return res.status(400).send({
@@ -117,7 +298,78 @@ exports.allOrders=async (req, res) => {
   }
 
 
-  exports.updateOrder=async (req, res) => {
+
+
+  /**
+ * @swagger
+ * tags:
+ *   name: Orders
+ *   description: API endpoints for managing orders
+ */
+
+/**
+ * @swagger
+ * /orders/return/{orderId}:
+ *   patch:
+ *     summary: Mark Order as Returned by ID
+ *     description: Mark an order as returned by its ID. Only orders with status "delivered" can be marked as returned.
+ *     tags: [Orders]
+ *     parameters:
+ *       - in: path
+ *         name: orderId
+ *         description: ID of the order to mark as returned
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Order Marked as Returned Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '400':
+ *         description: Order with status other than "delivered" cannot be marked as returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '404':
+ *         description: Order not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '501':
+ *         description: Not Implemented (Internal Error)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+
+  exports.returnOrder=async (req, res) => {
     // Extract the orderId from the URL parameter
     const orderId = req.params.orderId;
   
@@ -153,7 +405,77 @@ exports.allOrders=async (req, res) => {
   }
 
 
-  exports.removeOrder=async (req, res) => {
+
+  /**
+ * @swagger
+ * tags:
+ *   name: Orders
+ *   description: API endpoints for managing orders
+ */
+
+/**
+ * @swagger
+ * /orders/cancel/{orderId}:
+ *   delete:
+ *     summary: Cancel Order by ID
+ *     description: Cancel an order by its ID. Orders with status "delivered" or "returned" cannot be cancelled.
+ *     tags: [Orders]
+ *     parameters:
+ *       - in: path
+ *         name: orderId
+ *         description: ID of the order to cancel
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Order Cancelled Successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '400':
+ *         description: Order with "delivered" or "returned" status cannot be cancelled
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '404':
+ *         description: Order not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       '501':
+ *         description: Not Implemented (Internal Error)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+
+  exports.cancelOrder=async (req, res) => {
     // Extract the orderId from the URL parameter
     const orderId = req.params.orderId;
   

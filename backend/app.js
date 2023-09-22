@@ -1,7 +1,7 @@
 const express=require('express')
 const { connection } = require('./config/database')
 const cors=require('cors')
-const bodyParser=require('body-parser')
+const bodyParser = require('body-parser');
 const cookieParcer=require("cookie-parser")
 const { UserRouter } = require('./routes/user.routes')
 const { ProductRouter } = require('./routes/product.routes')
@@ -14,7 +14,7 @@ const rateLimit = require("express-rate-limit");
 require('dotenv').config()
 
 const app=express()
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(cookieParcer())
 app.use(cors())
 
@@ -33,10 +33,10 @@ app.use(limiter);
 
 
 app.use("/user", UserRouter); // User-related routes
-app.use("/category", CategoryRouter); // Category-related routes
-app.use("/product", ProductRouter); // Product-related routes
+app.use("/categories", CategoryRouter); // Category-related routes
+app.use("/products", ProductRouter); // Product-related routes
 app.use("/cart", CartRouter); // Cart-related routes
-app.use("/order", OrdersRouter); // Order-related routes
+app.use("/orders", OrdersRouter); // Order-related routes
 
 
 const options = {
@@ -48,11 +48,11 @@ const options = {
       },
       servers: [
         {
-          url: "https://triveous-ecommerce-api.onrender",
+          url: "http://localhost:8000",
         },
       ],
     },
-    apis: ["./routes/*.js"],
+    apis: ["./controllers/*.js"],
   };
 
 const swaggerSpec = swaggerJSdoc(options);
