@@ -1,7 +1,6 @@
 <p align="center">
   <h3 align="center">E-commerce API Documentation</h3>
   <p align="center">
-    A brief description of your project.
     <br />
     <a href="https://test-ecommerce-qtec.onrender.com/api-docs/"><strong>Explore the Swagger documentation »</strong></a>
     <br />
