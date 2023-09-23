@@ -1,6 +1,18 @@
-# E-commerce API Documentation
-
-This API supports various e-commerce operations, including product and category listing, product details, cart management, and order processing. It also handles user authentication and token management.
+<p align="center">
+  <h3 align="center">E-commerce API Documentation</h3>
+  <p align="center">
+    A brief description of your project.
+    <br />
+    <a href="https://yourprojectdemo.link/"><strong>Explore the documentation »</strong></a>
+    <br />
+    <br />
+    <a href="https://yourprojectdemo.link/">View Demo</a>
+    ·
+    <a href="https://yourprojectdemo.link/">Report Bug</a>
+    ·
+    <a href="https://yourprojectdemo.link/">Request Feature</a>
+  </p>
+</p>
 
 ## Table of Contents
 
