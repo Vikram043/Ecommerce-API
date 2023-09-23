@@ -3,14 +3,14 @@
   <p align="center">
     A brief description of your project.
     <br />
-    <a href="https://yourprojectdemo.link/"><strong>Explore the documentation »</strong></a>
+    <a href="https://test-ecommerce-qtec.onrender.com/api-docs/"><strong>Explore the documentation »</strong></a>
     <br />
     <br />
-    <a href="https://yourprojectdemo.link/">View Demo</a>
+    <a href="https://test-ecommerce-qtec.onrender.com/api-docs/">View Demo</a>
     ·
-    <a href="https://yourprojectdemo.link/">Report Bug</a>
+    <a href="https://github.com/Vikram043/">Report Bug</a>
     ·
-    <a href="https://yourprojectdemo.link/">Request Feature</a>
+    <a href="https://github.com/Vikram043/">Request Feature</a>
   </p>
 </p>
 
