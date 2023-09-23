@@ -3,7 +3,7 @@
   <p align="center">
     A brief description of your project.
     <br />
-    <a href="https://test-ecommerce-qtec.onrender.com/api-docs/"><strong>Explore the documentation »</strong></a>
+    <a href="https://test-ecommerce-qtec.onrender.com/api-docs/"><strong>Explore the Swagger documentation »</strong></a>
     <br />
     <br />
     <a href="https://test-ecommerce-qtec.onrender.com/api-docs/">View Demo</a>
