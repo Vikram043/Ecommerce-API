@@ -195,29 +195,33 @@ Swagger documentation is available for API endpoints, including details about th
 
 ## Screenshots
 
-Include relevant project screenshots or images here.
 
 ### User Authentication 
-![User Authentication ](https://github.com/Vikram043/Ecommerce-API/assets/119391188/7eafe259-d054-4e6f-b2cb-4709e22520f8)
+![User Authentication ](https://github.com/Vikram043/Ecommerce-API/assets/119391188/875b3a99-cd2b-49c0-905e-3a03021d1fbc)
+
 
 ### Products
-![Products](https://github.com/Vikram043/Ecommerce-API/assets/119391188/c8e1069c-68c8-43b6-8519-b3d45ad8b6b7)
+![Products](https://github.com/Vikram043/Ecommerce-API/assets/119391188/e11ffce7-49a0-4364-a7d3-564a46c86895)
 
 
 ### Category
-![Category](https://github.com/Vikram043/Ecommerce-API/assets/119391188/f6a2cafb-431b-48d7-a75e-b35fc76b01c9)
+![Category](https://github.com/Vikram043/Ecommerce-API/assets/119391188/dac41504-b4d3-4c69-9ae9-0976a0613a3d)
+
 
 
 ### Cart
-![cart](https://github.com/Vikram043/Ecommerce-API/assets/119391188/7ac09673-0628-45b1-9252-c6bec566b6db)
+![cart](https://github.com/Vikram043/Ecommerce-API/assets/119391188/3d3b5be5-0949-4914-8519-74800db055d3)
+
 
 
 ### Orders
-![Orders](https://github.com/Vikram043/Ecommerce-API/assets/119391188/43ac9992-c92c-4da8-84a5-9f4cf84a2076)
+![Orders](https://github.com/Vikram043/Ecommerce-API/assets/119391188/d6649b01-da9c-4e66-a772-e43282636709)
+
 
 
 ### Schemas
-![Schemas](https://github.com/Vikram043/Ecommerce-API/assets/119391188/f93e8dcc-6d17-4dda-a7a6-6325be159fe2)
+![Schemas](https://github.com/Vikram043/Ecommerce-API/assets/119391188/7a4f8c57-c74e-4702-8468-57ea5ec8c152)
+
 
 
 
