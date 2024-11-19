@@ -281,7 +281,7 @@ This project is licensed under the [License Name](LICENSE) - see the [LICENSE](L
 
 ## Contact
 
-- Your Name
+- Vikram Naik
 - Email: knowme962@gmail.com
 - Project Link: [https://github.com/Vikram043/Ecommerce-API](https://github.com/Vikram043/Ecommerce-API)
 
